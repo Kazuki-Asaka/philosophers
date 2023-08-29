@@ -23,17 +23,30 @@ void	wait_thread_sync(t_philo *philo)
 	}
 }
 
-void	take_fork_1(t_philo *philo)
+void	get_fork_odd_number_phlo(t_philo *philo)
 {
-	if (philo -> philo_number % 2 == 1)
+	pthread_mutex_lock(&(philo -> left_hund -> mutex));
+	if (philo -> left_hund -> fork_status == 0)
+		philo -> left_hund -> fork_status = 1;
+	pthread_mutex_unlock(&(philo -> left_hund -> mutex));
+	pthread_mutex_lock(&(philo -> left_hund -> mutex));
+	if (philo -> left_hund -> fork_status == 1)
 	{
-		pthread_mutex_lock()
-	}
-	else
-	{
-
+		pthread_mutex_lock(&(philo -> right_hund -> mutex));
+		if (philo -> right_hund -> fork_status == 0)
+			philo -> right_hund -> fork_status = 1;
+		pthread_mutex_unlock(&(philo -> right_hund -> mutex));
 	}
 }
+
+void	take_fork(t_philo *philo)
+{
+	if (philo -> philo_number % 2 == 1)
+		get_fork_odd_number_phlo(philo);
+	else
+		get_fork_even_number_phlo(philo);
+}
+
 
 void	*start_to_eat(void *philo)
 {
