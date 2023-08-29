@@ -37,7 +37,7 @@ static int	check_digit(char **argv)
 	i = 1;
 	while (argv[i] != NULL)
 	{
-		if (is_str_digit(argv[i]) == 1)
+		if (is_str_digit(argv[i]) == 1 || ft_atoi(argv[i]) == -1)
 			return (1);
 		i++;
 	}

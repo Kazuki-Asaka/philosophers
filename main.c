@@ -14,13 +14,19 @@
 
 int	main(int argc, char **argv)
 {
-	t_data	*philosophers;
+	t_philo	*philosophers;
 	
 	if (check_error(argc, argv) == 1)
 		return (1);
-	philosophers = create_data(argv);
-	if (philosophers ==  NULL)
+	philosophers = create_philo_array(argv);
+	if (philosophers == NULL)
 		return (1);
-	start_philo_eat(philosophers);
+	manage_philo(philosophers);
+	printf("count %d\n", philosophers -> data -> sync_count);
+	// printf("time  %ld\n", philosophers -> data -> start_time.tv_sec);
+	// printf("time  %ld\n", philosophers -> data -> start_time.tv_usec);
 	return (0);
 }
+
+//forkの配列をright_hund, left_hundに格納
+//書き込んでるときの読み込みは競合するか

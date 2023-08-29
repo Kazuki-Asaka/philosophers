@@ -1,10 +1,10 @@
 SRCS	=	main.c \
 			check_error.c\
-			create_data.c\
 			ft_atoi.c\
 			ft_calloc.c\
 			free.c\
-			philo_start_eat.c
+			create_philo_array.c\
+			manage_philo.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -17,7 +17,7 @@ NAME	=	philosophers
 all:	$(NAME)
 
 $(NAME):	$(OBJS)
-		$(CC) $(CFLAGS) $(OBJS)  -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS)  -lpthread -o $(NAME)
 
 clean:	
 		rm -f $(OBJS)

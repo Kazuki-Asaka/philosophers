@@ -18,7 +18,7 @@ void	*free_input_info(t_input_info *info)
 	return (NULL);
 }
 
-void	*free_input_philo(t_philo *philo)
+void	*free_philo(t_philo *philo)
 {
 	free(philo);
 	return (NULL);
@@ -36,11 +36,11 @@ void	*free_fork(t_fork *fork)
 	return (NULL);
 }
 
-void	*free_all(t_data *philo_data)
+void	*free_all(t_philo *philosophers)
 {
-	free_input_info(philo_data -> philo_array ->time_info);
-	free_input_philo(philo_data -> philo_array);
-	free_fork(philo_data -> fork_arry);
-	free_data(philo_data);
+	free_input_info(philosophers -> data -> input);
+	free_fork(philosophers -> data -> fork);
+	free_data(philosophers -> data);
+	free_philo(philosophers);
 	return (NULL);
 }

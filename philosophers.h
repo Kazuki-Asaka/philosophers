@@ -6,9 +6,12 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <limits.h>
+# include <stdint.h>
+# include <sys/time.h>
 
 typedef struct s_input_info
 {
+	int	philo_size;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
@@ -22,39 +25,43 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }t_fork;
 
+typedef struct s_data
+{
+	int				sync_count;
+	pthread_mutex_t	count_mutex;
+	int				check_die;
+	pthread_mutex_t	check_die_mutex;
+	t_input_info	*input;
+	t_fork			*fork;
+	struct timeval	start_time;
+}t_data;
+
 typedef struct s_philo
 {
 	int				philo_number;
 	pthread_t		thread;
 	t_fork			*left_hund;
 	t_fork			*right_hund;
-	t_input_info	*time_info;
 	int				eat_count;
-	int				start_time;
+	struct timeval	last_eat_time;
+	t_data			*data;
 }t_philo;
 
-typedef struct s_data
-{
-	int		philo_size;
-	t_philo	*philo_array;
-	t_fork	*fork_arry;
-	int		sync_count;
-	pthread_mutex_t	count_mutex;
-	int		check_die;
-}t_data;
 
 int	check_error(int argc, char **argv);
 
 void	*ft_calloc(size_t count, size_t size);
 int		ft_atoi(const char *str);
-t_data	*create_data(char **argv);
+t_data	*create_philo_data(char **argv);
 
 void	*free_input_info(t_input_info *info);
-void	*free_input_philo(t_philo *philo);
+void	*free_philo(t_philo *philo);
 void	*free_data(t_data *philo_data);
 void	*free_fork(t_fork *fork);
-void	*free_all(t_data *philo_data);
+void	*free_all(t_philo *philosophers);
 
-void	manage_philo(t_data *philo_data)
+t_philo *create_philo_array(char **argv);
+
+void    manage_philo(t_philo *philoophers);
 
 #endif
