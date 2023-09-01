@@ -1,53 +1,5 @@
 #include "philosophers.h"
 
-void	thread_counter(t_philo	*philo)
-{
-	pthread_mutex_lock(&(philo ->data -> count_mutex)); 
-	philo -> data->sync_count++;
-	pthread_mutex_unlock(&(philo ->data -> count_mutex));
-}
-
-void	wait_thread_sync(t_philo *philo)
-{
-	int	flag;
-
-	flag = 0;
-	while (1)
-	{
-		pthread_mutex_lock(&(philo ->data -> count_mutex)); 
-		if (philo -> data -> sync_count == -1)
-			flag = 1;
-		pthread_mutex_unlock(&(philo ->data -> count_mutex));
-		if (flag == 1)
-			break ;
-	}
-}
-
-void	get_fork_odd_number_phlo(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo -> left_hund -> mutex));
-	if (philo -> left_hund -> fork_status == 0)
-		philo -> left_hund -> fork_status = 1;
-	pthread_mutex_unlock(&(philo -> left_hund -> mutex));
-	pthread_mutex_lock(&(philo -> left_hund -> mutex));
-	if (philo -> left_hund -> fork_status == 1)
-	{
-		pthread_mutex_lock(&(philo -> right_hund -> mutex));
-		if (philo -> right_hund -> fork_status == 0)
-			philo -> right_hund -> fork_status = 1;
-		pthread_mutex_unlock(&(philo -> right_hund -> mutex));
-	}
-}
-
-void	take_fork(t_philo *philo)
-{
-	if (philo -> philo_number % 2 == 1)
-		get_fork_odd_number_phlo(philo);
-	else
-		get_fork_even_number_phlo(philo);
-}
-
-
 void	*start_to_eat(void *philo)
 {
 	t_philo	*new_philo;
@@ -57,7 +9,14 @@ void	*start_to_eat(void *philo)
 	wait_thread_sync(new_philo);
 	while (1)
 	{
-		take_fork(philo);
+		take_fork(new_philo);
+		if (new_philo -> right_hund_status == 1 && new_philo -> left_hund_status == 1)
+		{
+			falling_asleep(new_philo);
+			thinking(new_philo);
+		}
+		if (check_die_flag(new_philo) == 1)
+			break ;
 	}
 	return (NULL);
 }
@@ -80,17 +39,21 @@ int	create_thread(t_philo *philosophers)
 
 void	check_mutex_count(t_philo *philosophers)
 {
+	int	flag;
+
+	flag = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&(philosophers -> data -> count_mutex));
 		if (philosophers -> data -> sync_count == philosophers -> data ->input -> philo_size)
-			philosophers -> data -> sync_count = -1;
-		pthread_mutex_unlock(&(philosophers -> data -> count_mutex));
-		if (philosophers -> data -> sync_count == -1)
 		{
+			philosophers -> data -> sync_count = -1;
 			gettimeofday(&philosophers -> data -> start_time, NULL);
-			break ;
+			flag = 1;
 		}
+		pthread_mutex_unlock(&(philosophers -> data -> count_mutex));
+		if (flag == 1)
+			break;
 	}
 }
 
@@ -114,5 +77,3 @@ void    manage_philo(t_philo *philosophers)
 	check_mutex_count(philosophers);
     join_loop(philosophers, create_thread_number);
 }
-
-//どのタイミングで死ぬのか。死亡のフラグを上げるのはメイン関数か、forkの持ち方

@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	if (philosophers == NULL)
 		return (1);
 	manage_philo(philosophers);
-	printf("count %d\n", philosophers -> data -> sync_count);
+	// printf("count %d\n", philosophers -> data -> sync_count);
 	// printf("time  %ld\n", philosophers -> data -> start_time.tv_sec);
 	// printf("time  %ld\n", philosophers -> data -> start_time.tv_usec);
 	return (0);

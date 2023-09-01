@@ -20,8 +20,7 @@ typedef struct s_input_info
 
 typedef struct s_fork
 {
-	int				fork_status;
-	int 			prev_philo_number;
+	int				prev_philo;
 	pthread_mutex_t	mutex;
 }t_fork;
 
@@ -43,6 +42,8 @@ typedef struct s_philo
 	t_fork			*left_hund;
 	t_fork			*right_hund;
 	int				eat_count;
+	int				right_hund_status;
+	int				left_hund_status;
 	struct timeval	last_eat_time;
 	t_data			*data;
 }t_philo;
@@ -63,5 +64,26 @@ void	*free_all(t_philo *philosophers);
 t_philo *create_philo_array(char **argv);
 
 void    manage_philo(t_philo *philoophers);
+
+long int	m_cal_time(struct timeval time);
+long int	cal_time_difference(struct timeval time1, struct timeval time2);
+void    	stop_watch(int time);
+
+void	thread_counter(t_philo	*philo);
+void	wait_thread_sync(t_philo *philo);
+
+void	take_fork(t_philo *philo);
+void	get_fork_odd_number_philo(t_philo *philo);
+void	get_fork_even_number_philo(t_philo *philo);
+
+void	thinking(t_philo *philo);
+
+void	falling_asleep(t_philo *philo);
+
+int check_die_flag(t_philo *philo);
+int philo_die_check(t_philo *philo);
+
+int	check_die_flag(t_philo *philo);
+
 
 #endif

@@ -25,6 +25,7 @@ int init_fork_array(t_fork *fork, int philo_size)
 	{
 		if (pthread_mutex_init(&(fork[i].mutex), NULL) != 0)
 			return (1);
+		fork[i].prev_philo = i + 1;
 		i++;
 	}
 	return (0);
@@ -98,7 +99,10 @@ void	set_fork(t_philo *philo_array)
 	while(i < count)
 	{
 		philo_array[i].left_hund = &(philo_array -> data -> fork[i]);
-		philo_array[i].right_hund = &(philo_array -> data -> fork[i % count - 1]);
+		if (i == 0)
+			philo_array[i].right_hund = &(philo_array -> data -> fork[count - 1]);
+		else
+			philo_array[i].right_hund = &(philo_array -> data -> fork[i - 1]);
 		i ++;
 	}
 }

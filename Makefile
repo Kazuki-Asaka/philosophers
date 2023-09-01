@@ -4,7 +4,13 @@ SRCS	=	main.c \
 			ft_calloc.c\
 			free.c\
 			create_philo_array.c\
-			manage_philo.c
+			manage_philo.c\
+			stop_watch.c\
+			sync_barrier.c\
+			take_fork.c\
+			thinking.c\
+			sleeping.c\
+			philo_die_check.c
 
 OBJS	=	$(SRCS:.c=.o)
 
