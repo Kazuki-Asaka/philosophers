@@ -28,6 +28,7 @@ typedef struct s_data
 {
 	int				sync_count;
 	pthread_mutex_t	count_mutex;
+	pthread_mutex_t	print_mutex;
 	int				check_die;
 	pthread_mutex_t	check_die_mutex;
 	t_input_info	*input;

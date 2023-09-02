@@ -27,16 +27,15 @@ int	check_die_flag(t_philo *philo)
 
 int philo_die_check(t_philo *philo)
 {
-    struct timeval time;
+	struct timeval	time;
+	int				flag;
 
-    gettimeofday(&time, NULL);
-    if (cal_time_difference(time, philo -> last_eat_time) > philo -> data -> input ->time_to_die)
-    {
-        pthread_mutex_lock(&(philo -> data -> check_die_mutex));
-        philo -> data -> check_die = 1;
-		printf("%ld %d is died\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
-        pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
-        return (1);
-    }
-    return (0);
+	flag = 0;
+	pthread_mutex_lock(&(philo -> data -> check_die_mutex));
+	gettimeofday(&time, NULL);
+	if (cal_time_difference(time, philo -> last_eat_time) > philo -> data -> input ->time_to_die)
+		philo -> data -> check_die = 1;
+	flag = philo -> data -> check_die;
+	pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
+	return (flag);
 }
