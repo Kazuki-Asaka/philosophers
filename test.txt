@@ -1,0 +1,20 @@
+5200 3 has taken a fork
+5200 2 has taken a fork
+5200 3 has taken a fork
+5200 3 is eating
+5400 1 is thinking
+5400 2 has taken a fork
+5400 2 is eating
+5400 3 is sleeping
+5600 3 is thinking
+5600 1 has taken a fork
+5600 2 is sleeping
+5600 1 has taken a fork
+5600 1 is eating
+5800 2 is thinking
+5800 2 has taken a fork
+5800 2 has taken a fork
+5800 2 is eating
+5801 3 is died
+5800 1 is sleeping
+5800 3 has taken a fork

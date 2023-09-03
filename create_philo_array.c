@@ -107,6 +107,20 @@ void	set_fork(t_philo *philo_array)
 	}
 }
 
+int	intit_eat_mutex(t_philo *philo_array)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo_array -> data -> input -> philo_size)
+	{
+		if (pthread_mutex_init(&(philo_array[i].eat_mutex), NULL) != 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 t_philo *create_philo_array(char **argv)
 {
 	t_philo *philo_array;
@@ -120,5 +134,6 @@ t_philo *create_philo_array(char **argv)
 		return (free_philo(philo_array));
 	set_common_data(common_data, philo_array);
 	set_fork(philo_array);
+	intit_eat_mutex(philo_array);
 	return (philo_array);
 }

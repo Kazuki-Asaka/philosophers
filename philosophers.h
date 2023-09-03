@@ -46,6 +46,7 @@ typedef struct s_philo
 	int				right_hund_status;
 	int				left_hund_status;
 	struct timeval	last_eat_time;
+	pthread_mutex_t	eat_mutex;
 	t_data			*data;
 }t_philo;
 

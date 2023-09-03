@@ -20,5 +20,6 @@ void	wait_thread_sync(t_philo *philo)
 		pthread_mutex_unlock(&(philo ->data -> count_mutex));
 		if (flag == 1)
 			break ;
+		usleep(100);
 	}
 }

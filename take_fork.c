@@ -52,8 +52,12 @@ void	trailing_hund(t_philo *philo, char c)
 	philo -> eat_count++;
 	if (check_die_flag(philo) != 1)
 	{
+		printf("%d %d\n", philo -> philo_number, philo -> eat_count);
+		// philo -> eat_count++;
 		gettimeofday(&time, NULL);
+		pthread_mutex_lock(&(philo -> eat_mutex));
 		philo -> last_eat_time = time;
+		pthread_mutex_unlock(&(philo -> eat_mutex));
 		printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
 		printf("%ld %d is eating\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
 		stop_watch(philo -> data -> input -> time_to_eat);
