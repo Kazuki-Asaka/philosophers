@@ -9,6 +9,11 @@
 # include <stdint.h>
 # include <sys/time.h>
 
+#define EAT "is eating"
+#define SLEEP "is sleepung"
+#define THINK "is thinking"
+#define FORK "has taken a fork"
+
 typedef struct s_input_info
 {
 	int	philo_size;
@@ -81,10 +86,7 @@ void	thinking(t_philo *philo);
 
 void	falling_asleep(t_philo *philo);
 
-int check_die_flag(t_philo *philo);
+int	check_die_flag(t_philo *philo, char *msg);
 int philo_die_check(t_philo *philo);
-
-int	check_die_flag(t_philo *philo);
-
 
 #endif

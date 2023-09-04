@@ -11,7 +11,12 @@
 // }
 
 
-int	check_die_flag(t_philo *philo)
+void	print_msg(char *msg, time)
+{
+	printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
+}
+
+int	check_die_flag(t_philo *philo, char *msg);
 {
 	int	check;
 
@@ -21,6 +26,8 @@ int	check_die_flag(t_philo *philo)
 		check = 1;
 	if (philo -> data ->input ->must_eat != 0 && philo-> data -> input -> must_eat == philo -> eat_count)
 		check = 1;
+	if (check == 0)
+		print_msg(msg);
 	pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
 	return (check);
 }
