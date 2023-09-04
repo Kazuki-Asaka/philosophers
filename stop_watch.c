@@ -24,6 +24,6 @@ void    stop_watch(int time)
 		count = cal_time_difference(tmp_time, start);
 		if (count >= (long int)time)
 			break ;
-		usleep(100);
+		// usleep(100);
 	}
 }

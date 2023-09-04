@@ -7,7 +7,6 @@ void	*start_to_eat(void *philo)
 	new_philo = philo;
 	thread_counter(new_philo);
 	wait_thread_sync(new_philo);
-	thinking(new_philo);
 	while (1)
 	{
 		take_fork(new_philo);
@@ -106,10 +105,11 @@ void	check_philo_status(t_philo *philosophers)
 		}
 		if (flag == 1)
 			break ;
-		usleep(100);
 	}
-	gettimeofday(&time, NULL);//flagを上げるたことを認識する前に出力してしまう
+	gettimeofday(&time, NULL);
+	// pthread_mutex_lock(&(philosophers[i].data -> print_mutex));
 	printf("%ld %d is died\n", cal_time_difference(time, philosophers[i].data -> start_time), i + 1);
+	// pthread_mutex_unlock(&(philosophers[i].data -> print_mutex));
 }
 
 void	manage_philo(t_philo *philosophers)
