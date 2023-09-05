@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_philo_array.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/05 20:24:30 by akazuki           #+#    #+#             */
+/*   Updated: 2023/09/05 20:24:30 by akazuki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 t_input_info	*create_common_input(char **argv)
@@ -16,7 +28,7 @@ t_input_info	*create_common_input(char **argv)
 	return (input_info);
 }
 
-int init_fork_array(t_fork *fork, int philo_size)
+int	init_fork_array(t_fork *fork, int philo_size)
 {
 	int	i;
 
@@ -57,7 +69,7 @@ int	init_common_data_mutex(t_data *data)
 
 t_data	*create_common_data(char **argv)
 {
-	t_data   *data;
+	t_data	*data;
 
 	data = ft_calloc(1, sizeof(t_data));
 	if (data == NULL)
@@ -81,7 +93,7 @@ t_data	*create_common_data(char **argv)
 
 void	set_common_data(t_data *common_data, t_philo *philo_array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < common_data -> input -> philo_size)
@@ -94,20 +106,39 @@ void	set_common_data(t_data *common_data, t_philo *philo_array)
 
 void	set_fork(t_philo *philo_array)
 {
-	int i;
+	int	i;
+	int	count;
+
+	i = 0;
+	count = philo_array -> data -> input -> philo_size;
+	while (i < count)
+	{
+		philo_array[i].left_hund = &(philo_array -> data -> fork[i]);
+		if (i == 0)
+			philo_array[i].right_hund = &(philo_array -> data 
+			-> fork[count - 1]);
+		else
+			philo_array[i].right_hund = &(philo_array -> data -> fork[i - 1]);
+		i ++;
+	}
+}
+
+int	init_philo_mutex(t_philo *philo_array)
+{
+	int	i;
 	int count;
 
 	i = 0;
 	count = philo_array -> data -> input -> philo_size;
 	while(i < count)
 	{
-		philo_array[i].left_hund = &(philo_array -> data -> fork[i]);
-		if (i == 0)
-			philo_array[i].right_hund = &(philo_array -> data -> fork[count - 1]);
-		else
-			philo_array[i].right_hund = &(philo_array -> data -> fork[i - 1]);
-		i ++;
+		if (pthread_mutex_init(&(philo_array[i].eat_mutex), NULL) != 0)
+			return (1);
+		if (pthread_mutex_init(&(philo_array[i].time_mutex), NULL) != 0)
+			return (1);
+		i++;
 	}
+	return (0);
 }
 
 t_philo *create_philo_array(char **argv)
@@ -123,5 +154,6 @@ t_philo *create_philo_array(char **argv)
 		return (free_philo(philo_array));
 	set_common_data(common_data, philo_array);
 	set_fork(philo_array);
+	init_philo_mutex(philo_array);
 	return (philo_array);
 }

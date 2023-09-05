@@ -1,13 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   thinking.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/05 20:29:19 by akazuki           #+#    #+#             */
+/*   Updated: 2023/09/05 20:29:19 by akazuki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	thinking(t_philo *philo)
 {
-	// struct timeval	time;
-
-	// if (check_die_flag(philo) != 1)
-	// {
-	// 	gettimeofday(&time, NULL);
-	// 	printf("%ld %d is thinking\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
-	// }
 	check_die_flag_print(philo, THINK);
 }

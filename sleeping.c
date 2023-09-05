@@ -1,9 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sleeping.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/05 20:34:49 by akazuki           #+#    #+#             */
+/*   Updated: 2023/09/05 20:34:49 by akazuki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	falling_asleep(t_philo *philo)
 {
-	// struct timeval	time;
-
 	if (philo -> philo_number % 2 == 1)
 	{
 		pthread_mutex_unlock(&(philo -> left_hund -> mutex));
@@ -17,9 +27,5 @@ void	falling_asleep(t_philo *philo)
 	philo -> right_hund_status = 0;
 	philo -> left_hund_status = 0;
 	if (check_die_flag_print(philo, SLEEP) != 1)
-	{
-		// gettimeofday(&time, NULL);
-		// printf("%ld %d is sleeping\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
-		stop_watch(philo -> data -> input -> time_to_sleep);
-	}
+		stop_watch(philo, philo -> data -> input -> time_to_sleep);
 }

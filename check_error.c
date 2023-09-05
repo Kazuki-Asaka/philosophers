@@ -6,7 +6,7 @@
 /*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:55:40 by akazuki           #+#    #+#             */
-/*   Updated: 2023/08/22 17:07:19 by akazuki          ###   ########.fr       */
+/*   Updated: 2023/09/05 20:23:49 by akazuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_str_digit(char *str)
 		return (1);
 	if (str[i] == '+')
 		i++;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] < '0' || '9' < str[i])
 			return (1);

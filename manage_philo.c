@@ -3,7 +3,14 @@
 
 int	check_philo_eat_count(t_philo *philo)
 {
+	int	flag;
+
+	flag = 0;
+	pthread_mutex_lock(&(philo -> eat_mutex));
 	if (philo -> eat_count == philo -> data -> input -> must_eat)
+		flag = 1;
+	pthread_mutex_unlock(&(philo -> eat_mutex));
+	if (flag == 1)
 	{
 		if (philo -> philo_number % 2 == 1)
 		{
@@ -23,7 +30,14 @@ int	check_philo_eat_count(t_philo *philo)
 
 int	philo_eat_check(t_philo *philo)
 {
-	pthread_mutex_lock(philo -> )
+	int	flag;
+
+	flag = 0;
+	pthread_mutex_lock(&(philo -> eat_mutex));
+	if (philo -> data -> input -> must_eat && philo -> eat_count == philo -> data -> input -> must_eat)
+		flag = 1;
+	pthread_mutex_unlock(&(philo -> eat_mutex));
+	return (flag);
 }
 
 void	*start_to_eat(void *philo)
@@ -36,7 +50,6 @@ void	*start_to_eat(void *philo)
 	while (1)
 	{
 		take_fork(new_philo);
-		// printf("count %d %d\n", new_philo -> philo_number, new_philo -> eat_count);
 		if (new_philo -> right_hund_status == 1 && new_philo -> left_hund_status == 1)
 		{
 			if (check_philo_eat_count(new_philo) == 1)
@@ -131,7 +144,7 @@ void	check_philo_status(t_philo *philosophers)
 			if (flag == 1)
 				break ;
 			if (philo_eat_check(&philosophers[i]) == 1)
-				break ;
+				return ;
 			i++;
 		}
 		if (flag == 1)
