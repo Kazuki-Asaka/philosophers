@@ -1,5 +1,31 @@
 #include "philosophers.h"
 
+
+int	check_philo_eat_count(t_philo *philo)
+{
+	if (philo -> eat_count == philo -> data -> input -> must_eat)
+	{
+		if (philo -> philo_number % 2 == 1)
+		{
+			pthread_mutex_unlock(&(philo -> left_hund -> mutex));
+			pthread_mutex_unlock(&(philo -> right_hund -> mutex));
+		}
+		else
+		{
+			pthread_mutex_unlock(&(philo -> right_hund -> mutex));
+			pthread_mutex_unlock(&(philo -> left_hund -> mutex));
+		}
+		return (1);
+	}
+	else
+		return (0);
+}
+
+int	philo_eat_check(t_philo *philo)
+{
+	pthread_mutex_lock(philo -> )
+}
+
 void	*start_to_eat(void *philo)
 {
 	t_philo	*new_philo;
@@ -10,12 +36,15 @@ void	*start_to_eat(void *philo)
 	while (1)
 	{
 		take_fork(new_philo);
+		// printf("count %d %d\n", new_philo -> philo_number, new_philo -> eat_count);
 		if (new_philo -> right_hund_status == 1 && new_philo -> left_hund_status == 1)
 		{
+			if (check_philo_eat_count(new_philo) == 1)
+				break;
 			falling_asleep(new_philo);
 			thinking(new_philo);
 		}
-		if (check_die_flag(new_philo) == 1)
+		if (check_die_flag_print(new_philo, NULL) == 1)
 			break ;
 	}
 	return (NULL);
@@ -101,15 +130,18 @@ void	check_philo_status(t_philo *philosophers)
 			flag = philo_die_check(&philosophers[i]);
 			if (flag == 1)
 				break ;
+			if (philo_eat_check(&philosophers[i]) == 1)
+				break ;
 			i++;
 		}
 		if (flag == 1)
 			break ;
 	}
-	gettimeofday(&time, NULL);
-	// pthread_mutex_lock(&(philosophers[i].data -> print_mutex));
-	printf("%ld %d is died\n", cal_time_difference(time, philosophers[i].data -> start_time), i + 1);
-	// pthread_mutex_unlock(&(philosophers[i].data -> print_mutex));
+	if (flag == 1)
+	{
+		gettimeofday(&time, NULL);
+		printf("%ld %d %s", cal_time_difference(time, philosophers[i].data -> start_time), i + 1, DIED);
+	}
 }
 
 void	manage_philo(t_philo *philosophers)

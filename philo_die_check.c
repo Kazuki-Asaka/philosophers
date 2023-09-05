@@ -9,14 +9,20 @@
 //     pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
 //     return (check);
 // }
-
-
-void	print_msg(char *msg, time)
+void	print_msg(t_philo *philo, char *msg)
 {
-	printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	if (strcmp(msg, EAT) == 0)
+	{
+		philo -> last_eat_time = time;
+		printf("%ld %d %s", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number, FORK);
+	}
+	printf("%ld %d %s", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number, msg);
 }
 
-int	check_die_flag(t_philo *philo, char *msg);
+int	check_die_flag_print(t_philo *philo, char *msg)
 {
 	int	check;
 
@@ -24,10 +30,10 @@ int	check_die_flag(t_philo *philo, char *msg);
 	pthread_mutex_lock(&(philo -> data -> check_die_mutex));
 	if (philo -> data -> check_die == 1)
 		check = 1;
-	if (philo -> data ->input ->must_eat != 0 && philo-> data -> input -> must_eat == philo -> eat_count)
-		check = 1;
-	if (check == 0)
-		print_msg(msg);
+	// if (philo -> data ->input ->must_eat != 0 && philo-> data -> input -> must_eat == philo -> eat_count)
+	// 	check = 1;
+	if (check != 1 && msg != NULL)
+		print_msg(philo, msg);
 	pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
 	return (check);
 }

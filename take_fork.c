@@ -14,7 +14,7 @@
 
 void	precedence_hund(t_philo *philo, char c)
 {
-	struct timeval	time;
+	// struct timeval	time;
 
 	if (c == 'l')
 	{
@@ -26,17 +26,19 @@ void	precedence_hund(t_philo *philo, char c)
 		philo -> right_hund_status = 1;
 		philo -> right_hund -> prev_philo = philo -> philo_number;
 	}
-	if (check_die_flag(philo) != 1)
-	{
-		gettimeofday(&time, NULL);
-		printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
-	}
+	// if (check_die_flag(philo) != 1)
+	// {
+	// 	gettimeofday(&time, NULL);
+	// 	printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
+	// }
+	check_die_flag_print(philo, FORK);
 }
 
 void	trailing_hund(t_philo *philo, char c)
 {
-	struct timeval	time;
+	// struct timeval	time;
 
+	check_die_flag_print(philo, EAT);
 	if (c == 'l')
 	{
 		// pthread_mutex_lock(&(philo -> left_hund -> mutex));
@@ -50,14 +52,14 @@ void	trailing_hund(t_philo *philo, char c)
 		philo -> right_hund -> prev_philo = philo -> philo_number;
 	}
 	philo -> eat_count++;
-	if (check_die_flag(philo) != 1)
-	{
-		gettimeofday(&time, NULL);
-		philo -> last_eat_time = time;
-		printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
-		printf("%ld %d is eating\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
+	// if (check_die_flag_print(philo, EAT) != 1)
+	// {
+		// gettimeofday(&time, NULL);
+		// philo -> last_eat_time = time;
+		// printf("%ld %d has taken a fork\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
+		// printf("%ld %d is eating\n", cal_time_difference(time, philo -> data -> start_time), philo -> philo_number);
 		stop_watch(philo -> data -> input -> time_to_eat);
-	}
+	// }
 }
 
 void	get_fork_odd_number_philo(t_philo *philo)
