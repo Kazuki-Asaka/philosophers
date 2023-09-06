@@ -6,7 +6,7 @@
 /*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:36:51 by akazuki           #+#    #+#             */
-/*   Updated: 2023/09/05 20:39:48 by akazuki          ###   ########.fr       */
+/*   Updated: 2023/09/06 14:33:14 by akazuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <limits.h>
 # include <stdint.h>
 # include <sys/time.h>
+# include <string.h>
 # include <string.h>
 
 # define EAT "is eating\n"
@@ -82,15 +83,24 @@ t_philo		*create_philo_array(char **argv);
 void		manage_philo(t_philo *philoophers);
 long int	m_cal_time(struct timeval time);
 long int	cal_time_difference(struct timeval time1, struct timeval time2);
+void		check_mutex_count(t_philo *philosophers);
 void		stop_watch(t_philo *philo, int time);
 void		thread_counter(t_philo	*philo);
+void		set_init_last_eat_time(t_philo *philosophers, struct timeval time);
 void		wait_thread_sync(t_philo *philo);
 void		take_fork(t_philo *philo);
 void		get_fork_odd_number_philo(t_philo *philo);
 void		get_fork_even_number_philo(t_philo *philo);
 void		thinking(t_philo *philo);
 void		falling_asleep(t_philo *philo);
+int			check_philo_eat_count(t_philo *philo);
+int			philo_eat_check(t_philo *philo);
 int			check_die_flag_print(t_philo *philo, char *msg);
 int			philo_die_check(t_philo *philo);
+int			init_fork_array(t_fork *fork, int philo_size);
+int			init_common_data_mutex(t_data *data);
+int			init_philo_mutex(t_philo *philo_array);
+void		set_common_data(t_data *common_data, t_philo *philo_array);
+void		set_fork(t_philo *philo_array);
 
 #endif

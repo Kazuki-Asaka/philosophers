@@ -6,12 +6,12 @@
 /*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:02:18 by akazuki           #+#    #+#             */
-/*   Updated: 2023/08/22 17:04:42 by akazuki          ###   ########.fr       */
+/*   Updated: 2023/09/06 14:09:49 by akazuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <string.h>
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*p;

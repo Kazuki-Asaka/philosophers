@@ -55,6 +55,8 @@ void	get_fork_odd_number_philo(t_philo *philo)
 	}
 	if (philo -> left_hund_status == 1)
 	{
+		if (philo -> data -> input -> philo_size == 1)
+			return ;
 		pthread_mutex_lock(&(philo -> right_hund -> mutex));
 		if (philo -> right_hund -> prev_philo == philo -> philo_number)
 			pthread_mutex_unlock(&(philo -> right_hund -> mutex));

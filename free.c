@@ -6,7 +6,7 @@
 /*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:44:12 by akazuki           #+#    #+#             */
-/*   Updated: 2023/08/23 17:36:07 by akazuki          ###   ########.fr       */
+/*   Updated: 2023/09/06 14:10:43 by akazuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*free_philo(t_philo *philo)
 void	*free_data(t_data *philo_data)
 {
 	free(philo_data);
-	return(NULL);
+	return (NULL);
 }
 
 void	*free_fork(t_fork *fork)

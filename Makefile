@@ -10,7 +10,9 @@ SRCS	=	main.c \
 			take_fork.c\
 			thinking.c\
 			sleeping.c\
-			philo_die_check.c
+			philo_die_check.c\
+			mutex_init.c\
+			set_data.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -18,7 +20,7 @@ CC		=	cc
 
 CFLAGS	=	-Wall -Wextra -Werror -fsanitize=thread
 
-NAME	=	philosophers
+NAME	=	philo
 
 all:	$(NAME)
 
