@@ -25,12 +25,12 @@ void	*start_to_eat(void *philo)
 		if (new_philo -> right_hund_status == 1
 			&& new_philo -> left_hund_status == 1)
 		{
-			if (check_philo_eat_count(new_philo) == 1)
-				break ;
 			falling_asleep(new_philo);
 			thinking(new_philo);
 		}
 		if (check_die_flag_print(new_philo, NULL) == 1)
+			break ;
+		if (check_philo_eat_count(new_philo) == 1)
 			break ;
 	}
 	return (NULL);

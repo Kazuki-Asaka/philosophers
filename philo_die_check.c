@@ -22,19 +22,7 @@ int	check_philo_eat_count(t_philo *philo)
 		flag = 2;
 	pthread_mutex_unlock(&(philo -> eat_mutex));
 	if (flag == 2)
-	{
-		if (philo -> philo_number % 2 == 1)
-		{
-			pthread_mutex_unlock(&(philo -> left_hund -> mutex));
-			pthread_mutex_unlock(&(philo -> right_hund -> mutex));
-		}
-		else
-		{
-			pthread_mutex_unlock(&(philo -> right_hund -> mutex));
-			pthread_mutex_unlock(&(philo -> left_hund -> mutex));
-		}
 		return (1);
-	}
 	else
 		return (0);
 }
@@ -95,7 +83,7 @@ int	check_die_flag_print(t_philo *philo, char *msg)
 	if (philo -> data -> input -> philo_size == 1)
 		pthread_mutex_unlock(&(philo -> left_hund -> mutex));
 	pthread_mutex_lock(&(philo -> data -> check_die_mutex));
-	if (philo -> data -> check_die == 1)
+	if (philo -> data -> check_die == 1 || philo -> data -> check_die == 2)
 		check = 1;
 	if (msg == DIED)
 		print_msg(philo, msg);
