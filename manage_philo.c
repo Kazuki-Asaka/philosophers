@@ -100,5 +100,6 @@ void	manage_philo(t_philo *philosophers)
 	create_thread_number = create_thread(philosophers);
 	check_mutex_count(philosophers);
 	check_philo_status(philosophers);
+	destroy_all_mutex(philosophers);
 	join_loop(philosophers, create_thread_number);
 }
