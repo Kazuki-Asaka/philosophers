@@ -98,8 +98,9 @@ void	manage_philo(t_philo *philosophers)
 	int	create_thread_number;
 
 	create_thread_number = create_thread(philosophers);
-	check_mutex_count(philosophers);
+	if (create_thread_number == philosophers -> data -> input -> philo_size)
+		check_mutex_count(philosophers);
 	check_philo_status(philosophers);
-	destroy_all_mutex(philosophers);
 	join_loop(philosophers, create_thread_number);
+	destroy_all_mutex(philosophers);
 }

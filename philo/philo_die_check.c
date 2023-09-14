@@ -17,10 +17,10 @@ int	check_philo_eat_count(t_philo *philo)
 	int	flag;
 
 	flag = 0;
-	pthread_mutex_lock(&(philo -> eat_mutex));
+	pthread_mutex_lock(&(philo -> data -> check_die_mutex));
 	if (philo -> data -> check_die == 2)
 		flag = 2;
-	pthread_mutex_unlock(&(philo -> eat_mutex));
+	pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
 	if (flag == 2)
 		return (1);
 	else
@@ -101,13 +101,15 @@ int	philo_die_check(t_philo *philo)
 
 	flag = 0;
 	dead_time = philo -> data -> input ->time_to_die;
-	pthread_mutex_lock(&(philo -> data -> check_die_mutex));
 	gettimeofday(&time, NULL);
+	pthread_mutex_lock(&(philo -> data -> check_die_mutex));
 	pthread_mutex_lock(&(philo -> time_mutex));
 	if (cal_time_difference(time, philo -> last_eat_time) > (long int)dead_time)
+	{
 		philo -> data -> check_die = 1;
+		flag = 1;
+	}
 	pthread_mutex_unlock(&(philo -> time_mutex));
-	flag = philo -> data -> check_die;
 	pthread_mutex_unlock(&(philo -> data -> check_die_mutex));
 	return (flag);
 }
