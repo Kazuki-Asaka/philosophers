@@ -6,7 +6,7 @@
 /*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:36:51 by akazuki           #+#    #+#             */
-/*   Updated: 2023/09/15 09:18:49 by akazuki          ###   ########.fr       */
+/*   Updated: 2023/09/15 09:37:15 by akazuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ long int	cal_time_difference(struct timeval time1, struct timeval time2);
 void		check_mutex_count(t_philo *philosophers);
 void		stop_watch(t_philo *philo, int time);
 void		thread_counter(t_philo	*philo);
+void		not_start_eat(t_philo *philosophers);
 void		set_init_last_eat_time(t_philo *philosophers, struct timeval time);
 int			wait_thread_sync(t_philo *philo);
 void		take_fork(t_philo *philo);

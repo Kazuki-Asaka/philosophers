@@ -94,13 +94,6 @@ void	check_philo_status(t_philo *philosophers)
 		check_die_flag_print(&philosophers[i], DIED);
 }
 
-void	not_start_eat(t_philo *philosophers)
-{
-	pthread_mutex_lock(&(philosophers -> data -> count_mutex));
-		philosophers -> data -> sync_count = -2;
-	pthread_mutex_lock(&(philosophers -> data -> count_mutex));
-}
-
 void	manage_philo(t_philo *philosophers)
 {
 	int	create_thread_number;
