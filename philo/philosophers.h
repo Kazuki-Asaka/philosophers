@@ -6,7 +6,7 @@
 /*   By: akazuki <akazuki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 20:36:51 by akazuki           #+#    #+#             */
-/*   Updated: 2023/09/07 17:54:41 by akazuki          ###   ########.fr       */
+/*   Updated: 2023/09/15 09:18:49 by akazuki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		check_mutex_count(t_philo *philosophers);
 void		stop_watch(t_philo *philo, int time);
 void		thread_counter(t_philo	*philo);
 void		set_init_last_eat_time(t_philo *philosophers, struct timeval time);
-void		wait_thread_sync(t_philo *philo);
+int			wait_thread_sync(t_philo *philo);
 void		take_fork(t_philo *philo);
 void		get_fork_odd_number_philo(t_philo *philo);
 void		get_fork_even_number_philo(t_philo *philo);

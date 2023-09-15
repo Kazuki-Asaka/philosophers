@@ -58,7 +58,7 @@ void	thread_counter(t_philo	*philo)
 	pthread_mutex_unlock(&(philo -> data -> count_mutex));
 }
 
-void	wait_thread_sync(t_philo *philo)
+int	wait_thread_sync(t_philo *philo)
 {
 	int	flag;
 
@@ -66,10 +66,12 @@ void	wait_thread_sync(t_philo *philo)
 	while (1)
 	{
 		pthread_mutex_lock(&(philo -> data -> count_mutex));
-		if (philo -> data -> sync_count == -1)
-			flag = 1;
+		if (philo -> data -> sync_count == -1 ||
+		philo -> data -> sync_count == -2)
+			flag = philo -> data -> sync_count;
 		pthread_mutex_unlock(&(philo ->data -> count_mutex));
-		if (flag == 1)
+		if (flag == -1 || flag == -2)
 			break ;
 	}
+	return (flag);
 }

@@ -18,7 +18,8 @@ void	*start_to_eat(void *philo)
 
 	new_philo = philo;
 	thread_counter(new_philo);
-	wait_thread_sync(new_philo);
+	if (wait_thread_sync(new_philo) == -2)
+		return (NULL);
 	while (1)
 	{
 		take_fork(new_philo);
@@ -93,14 +94,27 @@ void	check_philo_status(t_philo *philosophers)
 		check_die_flag_print(&philosophers[i], DIED);
 }
 
+void	not_start_eat(t_philo *philosophers)
+{
+	pthread_mutex_lock(&(philosophers -> data -> count_mutex));
+		philosophers -> data -> sync_count = -2;
+	pthread_mutex_lock(&(philosophers -> data -> count_mutex));
+}
+
 void	manage_philo(t_philo *philosophers)
 {
 	int	create_thread_number;
+	int	philo_size;
 
+	philo_size = philosophers -> data -> input -> philo_size;
 	create_thread_number = create_thread(philosophers);
-	if (create_thread_number == philosophers -> data -> input -> philo_size)
+	if (create_thread_number == philo_size)
+	{
 		check_mutex_count(philosophers);
-	check_philo_status(philosophers);
+		check_philo_status(philosophers);
+	}
+	else
+		not_start_eat(philosophers);
 	join_loop(philosophers, create_thread_number);
 	destroy_all_mutex(philosophers);
 }
